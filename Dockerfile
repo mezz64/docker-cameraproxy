@@ -3,7 +3,7 @@ FROM ubuntu:latest
 MAINTAINER mezz64
 
 # set environment variables
-ARG DEBIAN_FRONTEND="noninteractive"
+# ARG DEBIAN_FRONTEND="noninteractive"
 # ENV XDG_CONFIG_HOME="/config/xdg"
 
 RUN \
@@ -36,8 +36,15 @@ RUN \
 # add local files
 COPY root/ /
 
+#Add start script
+ADD start.sh /start.sh
+RUN chmod +x /start.sh
+
 # ports and volumes
 EXPOSE 44456 44454
 VOLUME /config
 
-CMD [ "mono",  "--debug",  "/config/MJpegCameraProxyCmd.exe" ]
+WORKDIR /config
+
+# CMD [ "mono",  "--debug",  "/config/MJpegCameraProxyCmd.exe" ]
+ENTRYPOINT ["/start.sh"]
