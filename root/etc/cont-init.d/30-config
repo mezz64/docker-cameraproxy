@@ -5,5 +5,4 @@
 	rm -rf /config/cameraproxy.pid
 
 # permissions
-chown -R abc:abc \
-	/config
+chown -R abc:abc /config
