@@ -5,4 +5,4 @@ umask 022
 cd /config || exit
 
 exec \
-	s6-setuidgid abc mono --debug MJpegCameraProxy.exe
+	s6-setuidgid abc mono --debug MJpegCameraProxyCmd.exe
