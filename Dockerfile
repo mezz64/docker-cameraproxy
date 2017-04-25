@@ -1,4 +1,5 @@
-FROM lsiobase/mono
+# FROM lsiobase/mono
+FROM ubuntu:latest
 MAINTAINER mezz64
 
 # set environment variables
@@ -9,6 +10,7 @@ ENV XDG_CONFIG_HOME="/config/xdg"
 
 # install packages
 RUN apt-get update && \
+    apt-get install -yq mono-complete && \
 
 # cleanup
  apt-get clean && \
@@ -23,3 +25,5 @@ COPY root/ /
 # ports and volumes
 EXPOSE 44456 44454
 VOLUME /config
+
+CMD [ "mono",  "--debug",  "/config/MJpegCameraProxyCmd.exe" ]
