@@ -13,18 +13,9 @@ RUN \
     | tee /etc/apt/sources.list.d/mono-xamarin.list && \
  apt-get update && \
  apt-get install -yq \
-#    --no-install-recommends \
-#    --no-install-suggests \
-    bzip2 \
     ca-certificates-mono \
-    libcurl4-openssl-dev \
-#    mediainfo \
     mono-complete \
-#    mono-devel \
-#    mono-vbnc \
-#    python \
-#    sqlite3 \
-    unzip && \
+    supervisor && \
 
 # cleanup
  apt-get clean && \
@@ -33,12 +24,16 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
+RUN mkdir -p /var/log/supervisor
+
+ADD ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # add local files
-COPY root/ /
+# COPY root/ /
 
 #Add start script
-ADD start.sh /start.sh
-RUN chmod +x /start.sh
+# ADD start.sh /start.sh
+# RUN chmod +x /start.sh
 
 # ports and volumes
 EXPOSE 44456 44454
@@ -47,4 +42,5 @@ VOLUME /config
 WORKDIR /config
 
 # CMD [ "mono",  "--debug",  "/config/MJpegCameraProxyCmd.exe" ]
-ENTRYPOINT ["/start.sh"]
+# ENTRYPOINT ["/start.sh"]
+CMD ["/usr/bin/supervisord"]
