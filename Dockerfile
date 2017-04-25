@@ -8,7 +8,7 @@ ENV XDG_CONFIG_HOME="/config/xdg"
 # add cameraproxy repository
 
 # install packages
- apt-get update
+RUN apt-get update && \
 
 # cleanup
  apt-get clean && \
