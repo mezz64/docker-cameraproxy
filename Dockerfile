@@ -21,5 +21,5 @@ RUN apt-get update && \
 COPY root/ /
 
 # ports and volumes
-EXPOSE 44456, 44454
+EXPOSE 44456 44454
 VOLUME /config
