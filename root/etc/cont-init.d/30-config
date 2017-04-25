@@ -1,8 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-# cleanup pid if it exists
-[[ -e /config/cameraproxy.pid ]] && \
-	rm -rf /config/cameraproxy.pid
-
-# permissions
-chown -R abc:abc /config

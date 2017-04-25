@@ -1,4 +1,4 @@
-Docker for CameraProxy, based on linuxserver/sonarr container.
+Docker for CameraProxy using supervisord.
 
 ## Usage
 
@@ -7,8 +7,6 @@ docker create \
 	--name cameraproxy \
 	-p 44456:44456 \
 	-p 44454:44454 \
-	-e PUID=<UID> -e PGID=<GID> \
-	-e TZ=<timezone> \ 
 	-v /etc/localtime:/etc/localtime:ro \
 	-v </path/to/appdata>:/config \
 	mezz64/cameraproxy
@@ -27,25 +25,11 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 * `-v /config` - database and sonarr configs
 * `-v /etc/localtime` for timesync - see [Localtime](#localtime) for important information
 * `-e TZ` for timezone information, Europe/London - see [Localtime](#localtime) for important information
-* `-e PGID` for for GroupID - see below for explanation
-* `-e PUID` for for UserID - see below for explanation
 
-It is based on ubuntu xenial with S6 overlay, for shell access whilst the container is running do `docker exec -it cameraproxy /bin/bash`.
 
 ## Localtime
 
-It is important that you either set `-v /etc/localtime:/etc/localtime:ro` or the TZ variable, mono will throw exceptions without one of them set.
-
-### User / Group Identifiers
-
-Sometimes when using data volumes (`-v` flags) permissions issues can arise between the host OS and the container. We avoid this issue by allowing you to specify the user `PUID` and group `PGID`. Ensure the data volume directory on the host is owned by the same user you specify and it will "just work" <sup>TM</sup>.
-
-In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as below:
-
-```
-  $ id <dockeruser>
-    uid=1001(dockeruser) gid=1001(dockergroup) groups=1001(dockergroup)
-```
+It is important that you either set `-v /etc/localtime:/etc/localtime:ro`, mono will throw exceptions without this set.
 
 ## Setting up the application
 Access the webui at `<your-ip>:44456/admin`.

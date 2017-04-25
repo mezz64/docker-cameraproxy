@@ -1,8 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-umask 022
-
-cd /config || exit
-
-exec \
-	s6-setuidgid abc mono --debug MJpegCameraProxyCmd.exe
