@@ -1,5 +1,5 @@
 #FROM ubuntu:latest
-FROM mono:4.8.0.524
+FROM mono:4.2.1
 MAINTAINER mezz64
 
 #RUN \
@@ -15,6 +15,7 @@ MAINTAINER mezz64
 
 RUN apt-get update && \
     apt-get install -yq \
+    mono-4.0-service \
     supervisor && \
 
 # cleanup
